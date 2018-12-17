@@ -283,6 +283,10 @@ type HTTPMatchRequest struct {
 	//
 	// **Note:** The keys `uri`, `scheme`, `method`, and `authority` will be ignored.
 	Headers map[string]v1alpha1.StringMatch `json:"headers,omitempty"`
+
+	Port uint32 `json:"port,omitempty"`
+
+	Gateways []string `json:"gateways,omitempty"`
 }
 
 type DestinationWeight struct {
@@ -752,10 +756,12 @@ type InjectDelay struct {
 // not specified, all requests are aborted.
 type InjectAbort struct {
 	// Percentage of requests to be aborted with the error code provided (0-100).
-	Perecent int `json:"percent,omitempty"`
+	Percent int `json:"percent,omitempty"`
 
 	// REQUIRED. HTTP status code to use to abort the Http request.
 	HttpStatus int `json:"httpStatus"`
+	GrpcStatus string `json:"grpcStatus"`
+	Http2Error string `json:"http2Error"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
